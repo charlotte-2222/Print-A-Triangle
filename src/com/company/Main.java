@@ -1,37 +1,44 @@
 package com.company;
+import javax.swing.*;
 import java.util.Scanner;
 import static java.lang.System.in;
 import static java.lang.System.out;
 public class Main {
     public static void main(String[] args) {
-        do {
-            try {
+        try {
+            while (true) {
                 Scanner input = new Scanner(in);
                 out.println("------------------");
                 out.print("Enter your full name: ");
                 String fullName = input.nextLine();
                 String shapeChoice = TriangleMenu.Menu();
-                switch (shapeChoice) {
+                switch (shapeChoice.toUpperCase()) {
                     case "R" -> RightTriangle.rTriangle();
-                    case "r" -> RightTriangle.rTriangle();
                     case "I" -> IsoscelesTriangleClass.iTriangle();
-                    case "i" -> IsoscelesTriangleClass.iTriangle();
                     case "D" -> DiamondClass.Diamond();
-                    case "d" -> DiamondClass.Diamond();
+                    default -> infoBox("Invalid input", "Error!");
                 }
-
-                out.println("Hope you enjoyed the program, "+fullName);
-                out.print("Loop: ");
+                out.print("Try the program again?: ");
                 String loop = input.nextLine();
-                switch(loop){
+                switch (loop.toUpperCase()) {
                     case "Y" -> out.println("Continuing...");
-                    case "y" -> out.println("Continuing...");
-                    case "N" -> System.exit(0);
-                    case "n" -> System.exit(0);
+                    case "N" -> infoBox("Thank you for using this program","Bye!");
+                    default -> {
+                        infoBox("Invalid input\nPlease only use 'Y' or 'N'",
+                                "");
+                        if(loop.toUpperCase()=="n"){
+                            System.exit(1);
+                        }
+                    }
+
                 }
 
-            }catch (Exception e) {out.print("Someone has a small pee pee");}
+            }
+        }catch(Exception e){infoBox("Be sure to use numerical values","Error!");}
+    }
 
-        }while (true);
+    public static void infoBox(String s, String sq) {
+        JOptionPane.showMessageDialog(null, s, "" +
+                sq, JOptionPane.INFORMATION_MESSAGE);
     }
 }
